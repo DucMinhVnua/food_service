@@ -1,0 +1,1 @@
+module.exports = { login_route: "/api/login", register_route: "/api/register" }
