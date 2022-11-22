@@ -1,1 +1,1 @@
-module.exports = { login_route: "/api/login", register_route: "/api/register" }
+module.exports = { login_route: "/api/auth/login", register_route: "/api/auth/register", update_user_route: "/api/auth/update" }
