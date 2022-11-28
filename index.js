@@ -42,7 +42,7 @@ get_info(app);
 
 app.get(get_shop_list, getListShop);
 app.post(create_dish, upload.array("images"), insertDish);
-app.get(get_dish_list, selectAll);
+app.post(get_dish_list, selectAll);
 app.post(delete_dish, deleteDish);
 app.post(update_dish, upload.array("images"), updateDish);
 

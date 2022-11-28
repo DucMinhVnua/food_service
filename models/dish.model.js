@@ -1,3 +1,4 @@
+const { query } = require("express");
 const sql = require("../connection.mysql.js");
 
 const Dish = function (dish) {
@@ -37,12 +38,18 @@ Dish.create = (dish, result) => {
   );
 };
 
-Dish.selectAll = (result) => {
+Dish.selectAll = (id, result) => {
+
   const join_1 = "INNER JOIN auth a ON d.id_shop=a.id AND role=0";
   const join_2 = "INNER JOIN coords c ON a.coord_id=c.id";
+  let query = `SELECT d.*,a.id AS id_shop, a.email, a.phone_number, a.address, a.avatar, a.coord_id, c.latitude, c.longitude FROM dish d ${join_1} ${join_2}`
+
+  if(id) {
+    query += ` WHERE d.id_shop = ${id}`
+  }
 
   sql.query(
-    `SELECT d.*,a.id AS id_shop, a.email, a.phone_number, a.address, a.avatar, a.coord_id, c.latitude, c.longitude FROM dish d ${join_1} ${join_2}`,
+    query,
     (err, res) => {
       if (err) {
         result(err);
@@ -65,17 +72,33 @@ Dish.delete = (id, result) => {
 };
 
 Dish.update = (dish, result) => {
-  sql.query(
-    `UPDATE dish SET name=?, price=?, description=?, create_at=?, images=?, percent_discount=? WHERE id=?`,
-    [
+
+  let query = 'UPDATE dish SET name=?, price=?, description=?, create_at=?, images=?, percent_discount=? WHERE id=?'
+  let values = [
+    dish.name,
+    dish.price,
+    dish.description,
+    dish.create_at,
+    dish.images,
+    dish.percent_discount,
+    dish.id,
+  ]
+
+  if(!dish.images) {
+    query = 'UPDATE dish SET name=?, price=?, description=?, create_at=?, percent_discount=? WHERE id=?'
+    values = [
       dish.name,
       dish.price,
       dish.description,
       dish.create_at,
-      dish.images,
       dish.percent_discount,
       dish.id,
-    ],
+    ]
+  } 
+
+  sql.query(
+    query,
+    values,
     (err, res) => {
       if (err) {
         result(err);

@@ -22,7 +22,7 @@ exports.insertDish = (req, res) => {
     id_shop,
     name,
     price,
-    images: convertFileNameListToString(req.files),
+    images: req.files ? convertFileNameListToString(req.files) : null,
     description,
     create_at: new Date(),
     percent_discount,
@@ -46,7 +46,10 @@ exports.insertDish = (req, res) => {
 // SELECT ALL DISH
 
 exports.selectAll = function (req, res) {
-  Dish.selectAll((err, data) => {
+
+  const {id} = req.body
+
+  Dish.selectAll(id, (err, data) => {
     if (err) {
       res.status(500).send({
         code: 1,
@@ -55,7 +58,10 @@ exports.selectAll = function (req, res) {
     } else {
       res.status(200).send({
         code: 0,
-        data: data,
+        data: [
+          ...data,
+        ],
+        total: data.length
       });
     }
   });

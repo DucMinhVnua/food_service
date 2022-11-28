@@ -103,6 +103,10 @@ const insertUser = (email, password, user_name, phone_number, role, address, ava
 
 const updateUser = (id, coord_id, password, user_name, phone_number, address, avatar, latitude, longitude, res) => {
 
+    console.log({
+        id, coord_id, password, user_name, phone_number, address, avatar, latitude, longitude, res
+    })
+
     // UPDATE COORDINATE
 
     let query_update_coords = `UPDATE coords SET latitude="${latitude}", longitude="${longitude}" WHERE id="${coord_id}"`
