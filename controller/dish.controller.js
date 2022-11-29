@@ -1,4 +1,5 @@
 const Dish = require("../models/dish.model");
+const Notification = require("../models/notification.model");
 
 const convertFileNameListToString = (files) => {
   return files
@@ -46,8 +47,7 @@ exports.insertDish = (req, res) => {
 // SELECT ALL DISH
 
 exports.selectAll = function (req, res) {
-
-  const {id} = req.body
+  const { id } = req.body;
 
   Dish.selectAll(id, (err, data) => {
     if (err) {
@@ -58,10 +58,8 @@ exports.selectAll = function (req, res) {
     } else {
       res.status(200).send({
         code: 0,
-        data: [
-          ...data,
-        ],
-        total: data.length
+        data: [...data],
+        total: data.length,
       });
     }
   });
@@ -109,6 +107,25 @@ exports.updateDish = function (req, res) {
   });
 
   Dish.update(dish, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        code: 1,
+        message: err.message,
+      });
+    } else {
+      res.status(200).send({
+        code: 0,
+        data: data,
+      });
+    }
+  });
+};
+
+// GET LIST ORDERED DISH
+exports.getListOrdered = (req, res) => {
+  const { id } = req.body;
+
+  Notification.getAll(id, (err, data) => {
     if (err) {
       res.status(500).send({
         code: 1,

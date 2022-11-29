@@ -3,4 +3,5 @@ module.exports = {
   get_dish_list: "/api/dish/list",
   delete_dish: "/api/dish/delete",
   update_dish: "/api/dish/update",
+  notification_dish: "/api/dish/notification",
 };

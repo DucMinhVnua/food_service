@@ -1,0 +1,10 @@
+# role ordered
+order_customer_status:	0: Chưa đặt,
+                        1: Đang đợi shop duyệt,
+                        2: Đang được giao,
+                        3: Đã giao
+                        4: Đợi xác nhận đã giao,
+
+order_shop_status:		  0: Chờ xác nhận,
+                        1: Đơn hàng đang giao,
+                        2: Xác nhận đơn hàng đã giao
