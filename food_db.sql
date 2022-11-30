@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 25, 2022 lúc 11:04 AM
+-- Thời gian đã tạo: Th10 30, 2022 lúc 11:11 AM
 -- Phiên bản máy phục vụ: 10.4.25-MariaDB
 -- Phiên bản PHP: 7.4.30
 
@@ -36,20 +36,23 @@ CREATE TABLE `auth` (
   `address` varchar(100) NOT NULL,
   `user_name` varchar(100) NOT NULL,
   `avatar` varchar(100) NOT NULL,
-  `coord_id` int(11) NOT NULL
+  `coord_id` int(11) NOT NULL,
+  `description` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `auth`
 --
 
-INSERT INTO `auth` (`id`, `email`, `password`, `phone_number`, `role`, `address`, `user_name`, `avatar`, `coord_id`) VALUES
-(60, 'ndminh2131@gmial.com', '123456789', '0275724367837', 1, '113, Đống Đa, Hà Nội', 'Nguyễn Văn C', 'http://10.1.30.89:3000/uploads/2022-11-24T08-47-13.649Zimage.jpg', 18),
-(61, 'minhvnua@gmail.com', '123456789', '02234534534', 0, 'Đông Anh, Hà Nội', 'hello update', 'http://10.1.30.89:3000/uploads/2022-11-25T08-35-57.761Zimage.jpg', 19),
-(63, 'minhvnua113@gmail.com', '11111111', '0275724367837', 0, '113, Đống Đa, Hà Nội', 'Nguyễn Văn C', 'http://10.1.30.89:3000/uploads/2022-11-24T08-29-11.041Zimage.jpg', 21),
-(64, 'minhndtest@gmail.com', '123123123', '08745121354', 1, 'Ha Noi', 'minhtest', 'https://jes.edu.vn/wp-content/uploads/2017/10/h%C3%ACnh-%E1%BA%A3nh.jpg', 22),
-(66, 'minhesmail@gmail.com', '123123123', '098523456456', 0, 'TEFsss', 'aaa', 'https://jes.edu.vn/wp-content/uploads/2017/10/h%C3%ACnh-%E1%BA%A3nh.jpg', 24),
-(67, 'dada@gmail.com', '123123123', '0985326587', 1, 'HaNoi1', '12321aaa', 'https://jes.edu.vn/wp-content/uploads/2017/10/h%C3%ACnh-%E1%BA%A3nh.jpg', 25);
+INSERT INTO `auth` (`id`, `email`, `password`, `phone_number`, `role`, `address`, `user_name`, `avatar`, `coord_id`, `description`) VALUES
+(60, 'ndminh2131@gmial.com', '123456789', '0275724367837', 1, '113, Đống Đa, Hà Nội', 'Nguyễn Văn C', 'http://10.1.30.89:3000/uploads/2022-11-24T08-47-13.649Zimage.jpg', 18, ''),
+(61, 'minhvnua@gmail.com', '11111111', '0275724367837', 0, '113, Đống Đa, Hà Nội', 'Nguyễn Văn D', 'http://10.1.30.89:3000/uploads/2022-11-29T03-14-57.997Zimage.jpg', 19, ''),
+(63, 'minhvnua113@gmail.com', '11111111', '0275724367837', 0, '113, Đống Đa, Hà Nội', 'Nguyễn Văn A', 'http://10.1.30.89:3000/uploads/2022-11-29T02-49-00.773Zimg-default.png', 21, ''),
+(64, 'minhndtest@gmail.com', '123123123', '08745121354', 1, 'Ha Noi', 'minhtest', 'https://jes.edu.vn/wp-content/uploads/2017/10/h%C3%ACnh-%E1%BA%A3nh.jpg', 22, ''),
+(66, 'minhesmail@gmail.com', '123123123', '098523456456', 0, 'TEFsss', 'aaa', 'https://jes.edu.vn/wp-content/uploads/2017/10/h%C3%ACnh-%E1%BA%A3nh.jpg', 24, ''),
+(67, 'dada@gmail.com', '123123123', '0985326587', 1, 'HaNoi1', '12321aaa', 'https://jes.edu.vn/wp-content/uploads/2017/10/h%C3%ACnh-%E1%BA%A3nh.jpg', 25, ''),
+(68, 'nguoidung1@gmail.com', '111111111', '0875421645', 1, 'Test dia chi', 'nguoidung2', 'http://10.1.30.89:3000/uploads/2022-11-29T02-40-45.713Zimage.jpg', 26, ''),
+(69, '113@gmail.com', '11111111', '0895556235', 0, 'Ha dong, Ha noi', 'Cua hang so 1 nhat ban', 'https://jes.edu.vn/wp-content/uploads/2017/10/h%C3%ACnh-%E1%BA%A3nh.jpg', 27, 'Day la mieu ta cua hang\n');
 
 -- --------------------------------------------------------
 
@@ -69,13 +72,15 @@ CREATE TABLE `coords` (
 
 INSERT INTO `coords` (`id`, `latitude`, `longitude`) VALUES
 (18, '21.005140956901943', '105.77942743959939'),
-(19, '21.030133801194047', '105.82908868789673'),
+(19, '21.033452848232702', '105.77572513371706'),
 (20, '2', '2'),
-(21, '21.010972187564363', '105.78739985752657'),
+(21, '21.030842977650373', '105.770232911646'),
 (22, '37.4219983', '-122.084'),
 (23, '37.41767517009988', '-122.1433775871992'),
 (24, '37.4219983', '-122.084'),
-(25, '37.43689132193069', '-122.04304687678814');
+(25, '37.43689132193069', '-122.04304687678814'),
+(26, '37.43545826164708', '-122.15697772800921'),
+(27, '37.415659362312425', '-122.05994278192522');
 
 -- --------------------------------------------------------
 
@@ -100,7 +105,24 @@ CREATE TABLE `dish` (
 
 INSERT INTO `dish` (`id`, `id_shop`, `name`, `price`, `description`, `images`, `create_at`, `percent_discount`) VALUES
 (62, 61, 'Thịt bò bít tết', '100000', 'Món bít tết làm từ thăn lõi nạc vai bò mỹ sẽ cực kỳ  tuyệt vời đấy nhé. Đây là một trong những phần thịt chuyên được dùng làm phile Steak. Tuy thường được sử dụng bằng cách xử lý đơn giản và giá đầy đ', 'http://10.1.30.89:3000/uploads/2022-11-25T08-57-37.579Zdung-than-noi-bo-my-lam-steak.jpg, http://10.1.30.89:3000/uploads/2022-11-25T08-57-37.579Zdung-than-ngoai-bo-my-lam-steak.jpg, http://10.1.30.89:3000/uploads/2022-11-25T08-57-37.580Zsteak.jpg', '2022-11-25 15:57:37', '10'),
-(63, 63, 'update pizza', '22222', 'aaaaa', 'http://10.1.30.89:3000/uploads/2022-11-25T10-01-54.725Zdung-than-noi-bo-my-lam-steak.jpg, http://10.1.30.89:3000/uploads/2022-11-25T10-01-54.727Zdung-than-ngoai-bo-my-lam-steak.jpg, http://10.1.30.89:3000/uploads/2022-11-25T10-01-54.728Zsteak.jpg', '2022-11-25 17:01:54', '12');
+(63, 63, 'update pizza', '22222', 'aaaaa', 'http://10.1.30.89:3000/uploads/2022-11-25T10-01-54.725Zdung-than-noi-bo-my-lam-steak.jpg, http://10.1.30.89:3000/uploads/2022-11-25T10-01-54.727Zdung-than-ngoai-bo-my-lam-steak.jpg, http://10.1.30.89:3000/uploads/2022-11-25T10-01-54.728Zsteak.jpg', '2022-11-25 17:01:54', '12'),
+(66, 61, 'Mon an B', '50000', 'Mo Ta mon an a', 'http://10.1.30.89:3000/uploads/2022-11-29T02-57-35.951Ze2a40ec3-2e0a-49e9-9894-56c00c411025.jpeg', '2022-11-29 10:15:54', '0'),
+(67, 69, 'ALo', '75000', 'mo ta test', 'http://10.1.30.89:3000/uploads/2022-11-29T04-26-16.878Z0da3d3e4-029e-4627-974e-06b66715f5dc.jpeg', '2022-11-29 11:26:16', '5'),
+(68, 69, 'AAAAA', '100000', 'hello aadsdasdas', 'http://10.1.30.89:3000/uploads/2022-11-29T04-26-55.942Z45193d1c-96c7-4e1a-a633-e999fc9b4467.jpeg, http://10.1.30.89:3000/uploads/2022-11-29T04-26-55.970Zbb39a634-9aa9-426d-ab2e-ee9dadcc26b8.jpeg, http://10.1.30.89:3000/uploads/2022-11-29T04-26-56.017Zb0b975a8-cde1-483f-bf1f-918f844b0228.jpeg', '2022-11-29 11:26:56', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `notification`
+--
+
+CREATE TABLE `notification` (
+  `id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `order_time` datetime NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_dish` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -112,10 +134,9 @@ CREATE TABLE `orderdish` (
   `id` int(11) NOT NULL,
   `id_dish` int(11) NOT NULL,
   `id_customer` int(11) NOT NULL,
-  `id_shop` int(11) NOT NULL,
-  `role` int(11) NOT NULL,
-  `ordered_time` date NOT NULL,
-  `status` varchar(10) NOT NULL
+  `ordered_time` datetime NOT NULL,
+  `amount` int(11) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -143,12 +164,17 @@ ALTER TABLE `dish`
   ADD KEY `id_shop` (`id_shop`);
 
 --
+-- Chỉ mục cho bảng `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `orderdish`
 --
 ALTER TABLE `orderdish`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_customer` (`id_customer`),
-  ADD KEY `id_shop` (`id_shop`),
   ADD KEY `id_dish` (`id_dish`);
 
 --
@@ -159,25 +185,31 @@ ALTER TABLE `orderdish`
 -- AUTO_INCREMENT cho bảng `auth`
 --
 ALTER TABLE `auth`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT cho bảng `coords`
 --
 ALTER TABLE `coords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT cho bảng `dish`
 --
 ALTER TABLE `dish`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+
+--
+-- AUTO_INCREMENT cho bảng `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `orderdish`
 --
 ALTER TABLE `orderdish`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -200,7 +232,6 @@ ALTER TABLE `dish`
 --
 ALTER TABLE `orderdish`
   ADD CONSTRAINT `orderdish_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `auth` (`id`),
-  ADD CONSTRAINT `orderdish_ibfk_2` FOREIGN KEY (`id_shop`) REFERENCES `auth` (`id`),
   ADD CONSTRAINT `orderdish_ibfk_3` FOREIGN KEY (`id_dish`) REFERENCES `dish` (`id`);
 COMMIT;
 
