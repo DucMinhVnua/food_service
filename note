@@ -1,10 +1,16 @@
 # role ordered
-order_customer_status:	0: Chưa đặt,
-                        1: Đang đợi shop duyệt,
-                        2: Đang được giao,
-                        3: Đã giao
-                        4: Đợi xác nhận đã giao,
+- order_customer_status:	    0: Chưa đặt | hủy đơn hàng,
+								1: Chờ xác nhận,
+								2: Đang được giao,
+								3: Đã giao
+								4: Đợi xác nhận,
+								
+- order_shop_status:		    1: Chờ xác nhận
+								2: Đang được giao
+                                3: Đã giao
+								4: Đợi xác nhận
+								5: Từ chối đơn hàng
 
-order_shop_status:		  0: Chờ xác nhận,
-                        1: Đơn hàng đang giao,
-                        2: Xác nhận đơn hàng đã giao
+SHOP:
+        1 -> 2 -> 4 -> 3
+

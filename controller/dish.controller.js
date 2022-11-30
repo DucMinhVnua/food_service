@@ -1,5 +1,6 @@
 const Dish = require("../models/dish.model");
 const Notification = require("../models/notification.model");
+const Order = require("../models/Order.model");
 
 const convertFileNameListToString = (files) => {
   return files
@@ -122,10 +123,39 @@ exports.updateDish = function (req, res) {
 };
 
 // GET LIST ORDERED DISH
+
 exports.getListOrdered = (req, res) => {
   const { id } = req.body;
 
   Notification.getAll(id, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        code: 1,
+        message: err.message,
+      });
+    } else {
+      res.status(200).send({
+        code: 0,
+        data: data,
+      });
+    }
+  });
+};
+
+// INSERT ORDERED DISH
+
+exports.insertOrderDish = (req, res) => {
+  const { id_dish, id_customer, status, amount } = req.body;
+
+  const order = new Order({
+    id_dish,
+    id_customer,
+    status,
+    amount,
+    ordered_time: new Date(),
+  });
+
+  Order.insertOrderDish(order, (err, data) => {
     if (err) {
       res.status(500).send({
         code: 1,
