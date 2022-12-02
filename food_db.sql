@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 30, 2022 lúc 11:11 AM
+-- Thời gian đã tạo: Th12 02, 2022 lúc 11:33 AM
 -- Phiên bản máy phục vụ: 10.4.25-MariaDB
 -- Phiên bản PHP: 7.4.30
 
@@ -118,11 +118,26 @@ INSERT INTO `dish` (`id`, `id_shop`, `name`, `price`, `description`, `images`, `
 
 CREATE TABLE `notification` (
   `id` int(11) NOT NULL,
+  `id_orderDish` int(11) NOT NULL,
+  `id_customer` int(11) NOT NULL,
+  `id_dish` int(11) NOT NULL,
+  `ordered_time` datetime NOT NULL,
   `status` int(11) NOT NULL,
-  `order_time` datetime NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_dish` int(11) NOT NULL
+  `amount` int(11) NOT NULL,
+  `id_shop` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `notification`
+--
+
+INSERT INTO `notification` (`id`, `id_orderDish`, `id_customer`, `id_dish`, `ordered_time`, `status`, `amount`, `id_shop`) VALUES
+(213, 90, 68, 62, '2022-12-02 16:28:02', 1, 2, 61),
+(214, 90, 68, 62, '2022-12-02 16:28:17', 0, 2, 61),
+(215, 91, 68, 67, '2022-12-02 16:28:24', 1, 1, 69),
+(216, 92, 68, 68, '2022-12-02 16:28:29', 1, 1, 69),
+(217, 91, 68, 67, '2022-12-02 16:28:37', 0, 1, 69),
+(218, 93, 68, 66, '2022-12-02 16:42:06', 1, 3, 61);
 
 -- --------------------------------------------------------
 
@@ -136,8 +151,19 @@ CREATE TABLE `orderdish` (
   `id_customer` int(11) NOT NULL,
   `ordered_time` datetime NOT NULL,
   `amount` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL,
+  `id_shop` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `orderdish`
+--
+
+INSERT INTO `orderdish` (`id`, `id_dish`, `id_customer`, `ordered_time`, `amount`, `status`, `id_shop`) VALUES
+(90, 62, 68, '2022-12-02 16:28:02', 2, 0, 61),
+(91, 67, 68, '2022-12-02 16:28:24', 1, 0, 69),
+(92, 68, 68, '2022-12-02 16:28:29', 1, 1, 69),
+(93, 66, 68, '2022-12-02 16:42:06', 3, 1, 61);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -167,7 +193,11 @@ ALTER TABLE `dish`
 -- Chỉ mục cho bảng `notification`
 --
 ALTER TABLE `notification`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_orderDish` (`id_orderDish`),
+  ADD KEY `id_customer` (`id_customer`),
+  ADD KEY `id_dish` (`id_dish`),
+  ADD KEY `id_shop` (`id_shop`);
 
 --
 -- Chỉ mục cho bảng `orderdish`
@@ -175,7 +205,8 @@ ALTER TABLE `notification`
 ALTER TABLE `orderdish`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_customer` (`id_customer`),
-  ADD KEY `id_dish` (`id_dish`);
+  ADD KEY `id_dish` (`id_dish`),
+  ADD KEY `id_shop` (`id_shop`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -203,13 +234,13 @@ ALTER TABLE `dish`
 -- AUTO_INCREMENT cho bảng `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=219;
 
 --
 -- AUTO_INCREMENT cho bảng `orderdish`
 --
 ALTER TABLE `orderdish`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -228,11 +259,21 @@ ALTER TABLE `dish`
   ADD CONSTRAINT `dish_ibfk_1` FOREIGN KEY (`id_shop`) REFERENCES `auth` (`id`);
 
 --
+-- Các ràng buộc cho bảng `notification`
+--
+ALTER TABLE `notification`
+  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`id_orderDish`) REFERENCES `orderdish` (`id`),
+  ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`id_customer`) REFERENCES `auth` (`id`),
+  ADD CONSTRAINT `notification_ibfk_3` FOREIGN KEY (`id_dish`) REFERENCES `dish` (`id`),
+  ADD CONSTRAINT `notification_ibfk_4` FOREIGN KEY (`id_shop`) REFERENCES `auth` (`id`);
+
+--
 -- Các ràng buộc cho bảng `orderdish`
 --
 ALTER TABLE `orderdish`
   ADD CONSTRAINT `orderdish_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `auth` (`id`),
-  ADD CONSTRAINT `orderdish_ibfk_3` FOREIGN KEY (`id_dish`) REFERENCES `dish` (`id`);
+  ADD CONSTRAINT `orderdish_ibfk_3` FOREIGN KEY (`id_dish`) REFERENCES `dish` (`id`),
+  ADD CONSTRAINT `orderdish_ibfk_4` FOREIGN KEY (`id_shop`) REFERENCES `auth` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

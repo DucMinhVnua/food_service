@@ -15,6 +15,9 @@ const {
   update_dish,
   notification_dish,
   create_order_dish,
+  update_order_dish,
+  select_single_order_dish,
+  select_orders_dish,
 } = require("./Routes/dish.route");
 const { getListShop } = require("./controller/auth.controller");
 const {
@@ -24,6 +27,9 @@ const {
   updateDish,
   getListOrdered,
   insertOrderDish,
+  updateOrderDish,
+  selectOrderDish,
+  selectSingleOrderDish,
 } = require("./controller/dish.controller");
 
 const storage = multer.diskStorage({
@@ -51,6 +57,9 @@ app.post(delete_dish, deleteDish);
 app.post(update_dish, upload.array("images"), updateDish);
 app.post(notification_dish, getListOrdered);
 app.post(create_order_dish, insertOrderDish);
+app.post(update_order_dish, updateOrderDish);
+app.post(select_orders_dish, selectOrderDish);
+app.post(select_single_order_dish, selectSingleOrderDish);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
