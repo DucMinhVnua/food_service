@@ -184,6 +184,8 @@ const getInfoUser = (id, res) => {
       });
     }
 
+    console.log(rows[0]);
+
     return res.status(200).send({
       error: 0,
       error_message: "found account successfully!",

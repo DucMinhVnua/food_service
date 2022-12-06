@@ -125,15 +125,7 @@ exports.updateDish = function (req, res) {
 // GET LIST ORDERED DISH
 
 exports.getListOrdered = (req, res) => {
-  const { id, id_shop, order_by } = req.body;
-
-  const sortListNotificationByTimeDesc = (listNotification) => {
-    return listNotification.sort(function (a, b) {
-      const date1 = new Date(a.ordered_time);
-      const date2 = new Date(b.ordered_time);
-      return date2 - date1;
-    });
-  };
+  const { id, id_shop } = req.body;
 
   Notification.getAll({ id_customer: id, id_shop }, (err, data) => {
     if (err) {
@@ -142,8 +134,6 @@ exports.getListOrdered = (req, res) => {
         message: err.message,
       });
     }
-
-    data = sortListNotificationByTimeDesc(data);
 
     return res.status(200).send({
       code: 0,
@@ -214,29 +204,30 @@ exports.updateOrderDish = (req, res) => {
 // Select ORDERED DISH
 
 exports.selectOrderDish = (req, res) => {
-  const { id_customer, id_dish, type } = req.body;
+  const { id_customer, id_dish, type, id_shop } = req.body;
 
-  Order.selectOrderDish({ id_customer, id_dish, type }, (err, data) => {
-    if (err) {
-      res.status(500).send({
-        code: 1,
-        message: err,
-      });
-    } else {
-      res.status(200).send({
-        code: 0,
-        data: data,
-      });
+  Order.selectOrderDish(
+    { id_customer, id_dish, type, id_shop },
+    (err, data) => {
+      if (err) {
+        res.status(500).send({
+          code: 1,
+          message: err,
+        });
+      } else {
+        res.status(200).send({
+          code: 0,
+          data: data,
+        });
+      }
     }
-  });
+  );
 };
 
 exports.selectSingleOrderDish = (req, res) => {
-  const { id_dish } = req.body;
+  const { id_ordered } = req.body;
 
-  console.log(id_dish);
-
-  Order.selectSingleOrderDish(id_dish, (err, data) => {
+  Order.selectSingleOrderDish(id_ordered, (err, data) => {
     if (err) {
       res.status(500).send({
         code: 1,
