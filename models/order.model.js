@@ -98,8 +98,6 @@ Order.insertOrderDish = (order, result) => {
               return;
             }
 
-            console.log(order);
-
             sql.query(
               query_insertNotification,
               [
@@ -183,6 +181,10 @@ Order.selectOrderDish = (
 
   if (id_customer) {
     condition = `WHERE id_customer = ${id_customer}`;
+  }
+
+  if (id_dish && id_customer) {
+    condition = `WHERE id_customer = ${id_customer} AND id_dish = ${id_dish}`;
   }
 
   if (id_shop) {

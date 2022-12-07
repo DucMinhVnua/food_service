@@ -9,4 +9,6 @@ module.exports = {
   delete_order_dish: "/api/dish/delete_order",
   select_orders_dish: "/api/dish/list_order",
   select_single_order_dish: "/api/dish/order",
+  search_dish: "/api/dish/search",
+  search_ordered_dish: "/api/history/search",
 };

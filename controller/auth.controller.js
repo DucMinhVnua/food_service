@@ -119,19 +119,6 @@ const updateUser = (
   longitude,
   res
 ) => {
-  console.log({
-    id,
-    coord_id,
-    password,
-    user_name,
-    phone_number,
-    address,
-    avatar,
-    latitude,
-    longitude,
-    res,
-  });
-
   // UPDATE COORDINATE
 
   let query_update_coords = `UPDATE coords SET latitude="${latitude}", longitude="${longitude}" WHERE id="${coord_id}"`;
@@ -183,8 +170,6 @@ const getInfoUser = (id, res) => {
         error_message: err,
       });
     }
-
-    console.log(rows[0]);
 
     return res.status(200).send({
       error: 0,

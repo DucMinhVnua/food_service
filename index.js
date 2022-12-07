@@ -18,6 +18,8 @@ const {
   update_order_dish,
   select_single_order_dish,
   select_orders_dish,
+  search_dish,
+  search_ordered_dish,
 } = require("./Routes/dish.route");
 const { getListShop } = require("./controller/auth.controller");
 const {
@@ -31,6 +33,10 @@ const {
   selectOrderDish,
   selectSingleOrderDish,
 } = require("./controller/dish.controller");
+const {
+  searchDishController,
+  searchHistoryOrderedController,
+} = require("./controller/search.controller");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -60,6 +66,8 @@ app.post(create_order_dish, insertOrderDish);
 app.post(update_order_dish, updateOrderDish);
 app.post(select_orders_dish, selectOrderDish);
 app.post(select_single_order_dish, selectSingleOrderDish);
+app.post(search_dish, searchDishController);
+app.post(search_ordered_dish, searchHistoryOrderedController);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
