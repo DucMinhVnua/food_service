@@ -6,6 +6,17 @@ const {
 exports.searchDishController = (req, res) => {
   const { keyword } = req.body;
 
+  if (keyword.length <= 0) {
+    res.status(200).send({
+      code: 0,
+      data: {
+        keyword,
+        data: [],
+        total: 0,
+      },
+    });
+  }
+
   function handleData(err, data) {
     if (err) {
       res.status(404).send({
@@ -30,7 +41,7 @@ exports.searchDishController = (req, res) => {
 
 //
 exports.searchHistoryOrderedController = (req, res) => {
-  const { keyword, orderBy } = req.body;
+  const { keyword, orderBy, id_customer, id_shop } = req.body;
 
   function handleData(err, data) {
     if (err) {
@@ -55,6 +66,8 @@ exports.searchHistoryOrderedController = (req, res) => {
     {
       keyword,
       orderBy,
+      id_customer,
+      id_shop,
     },
     handleData
   );

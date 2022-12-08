@@ -9,7 +9,7 @@ exports.searchDishModel = (keyword, result) => {
   }
 
   // initializa variables
-  const querySelectTable = "SELECT * FROM dish";
+  const querySelectTable = "SELECT dish.* FROM dish";
   const conditionLike = `WHERE name LIKE "%${keyword}%"`;
   const queryJoinAuthByIdShop = "INNER JOIN auth ON auth.id = dish.id_shop";
   const queryJoinCoordsFromAuthTable =
@@ -34,12 +34,25 @@ exports.searchDishModel = (keyword, result) => {
 
 exports.searchDishHistoryModel = (req, result) => {
   // initialize variables
-  const querySelectTable = "SELECT * FROM notification";
-  const conditionStatus = "WHERE status = 4";
+  const querySelectTable =
+    "SELECT notification.*, dish.name, dish.price, dish.images, dish.percent_discount, dish.description, dish.id_shop, auth.address, auth.user_name AS name_shop, au_customer.user_name AS name_customer FROM notification";
+  let condition = "WHERE status = 4";
   const conditionLike = `dish.name LIKE "%${req.keyword}%"`;
   const queryJoinDish = "INNER JOIN dish ON dish.id = notification.id_dish";
   const orderBy = `ORDER BY notification.ordered_time ${req.orderBy}`;
-  let queryRoot = `${querySelectTable} ${queryJoinDish} ${conditionStatus} AND ${conditionLike}`;
+  const query_join_shop = `INNER JOIN auth ON auth.id = dish.id_shop`;
+  const query_join_customer = `INNER JOIN auth au_customer ON au_customer.id = notification.id_customer`;
+
+  if (req.id_customer) {
+    condition =
+      condition + ` AND notification.id_customer = ${req.id_customer}`;
+  }
+
+  if (req.id_shop) {
+    condition = condition + ` AND notification.id_shop = ${req.id_shop}`;
+  }
+
+  let queryRoot = `${querySelectTable} ${queryJoinDish} ${query_join_shop} ${query_join_customer} ${condition} AND ${conditionLike}`;
 
   // config when had orderBy
   if (req.orderBy) {
