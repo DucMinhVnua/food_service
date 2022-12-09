@@ -9,7 +9,8 @@ exports.searchDishModel = (keyword, result) => {
   }
 
   // initializa variables
-  const querySelectTable = "SELECT dish.* FROM dish";
+  const querySelectTable =
+    "SELECT dish.*, auth.address, auth.user_name AS name_shop FROM dish";
   const conditionLike = `WHERE name LIKE "%${keyword}%"`;
   const queryJoinAuthByIdShop = "INNER JOIN auth ON auth.id = dish.id_shop";
   const queryJoinCoordsFromAuthTable =

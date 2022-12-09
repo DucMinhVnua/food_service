@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6dd93b4a-da93-445f-b46d-852c5398eea7",
+		"_postman_id": "a6135eea-e1ee-42bb-bfbd-3722607b6988",
 		"name": "Food",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23707327"
@@ -106,13 +106,10 @@
 							"raw": "{\r\n    \"email\": \"ndminh2131@gmial.com\",\r\n    \"password\": \"123456789\"\r\n}"
 						},
 						"url": {
-							"raw": "http://10.1.30.89:3000/api/auth/login",
+							"raw": "http://localhost:3000/api/auth/login",
 							"protocol": "http",
 							"host": [
-								"10",
-								"1",
-								"30",
-								"89"
+								"localhost"
 							],
 							"port": "3000",
 							"path": [
@@ -140,7 +137,7 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "textimage",
+									"value": "Nguyen Van A",
 									"type": "text"
 								},
 								{
@@ -150,12 +147,12 @@
 								},
 								{
 									"key": "id",
-									"value": "63",
+									"value": "61",
 									"type": "text"
 								},
 								{
 									"key": "coord_id",
-									"value": "21",
+									"value": "19",
 									"type": "text"
 								},
 								{
@@ -430,6 +427,107 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "tạo order đồ ăn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_dish",
+									"value": "62",
+									"type": "text"
+								},
+								{
+									"key": "id_customer",
+									"value": "68",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "10.1.30.89:3000/api/dish/create_order",
+							"host": [
+								"10",
+								"1",
+								"30",
+								"89"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dish",
+								"create_order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cập nhật order đồ ăn",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Lấy đồ ăn đang đặt",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "62",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "10.1.30.89:3000/api/dish/order",
+							"host": [
+								"10",
+								"1",
+								"30",
+								"89"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dish",
+								"order"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -475,8 +573,19 @@
 				{
 					"name": "Danh sách món ăn",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "69",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
 						"url": {
 							"raw": "10.1.30.89:3000/api/dish/list",
 							"host": [
@@ -490,6 +599,187 @@
 								"api",
 								"dish",
 								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Danh sách thông báo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "68",
+									"description": "id customer",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "order_by",
+									"value": "time_desc",
+									"description": "time_desc: thoi gian giam dan",
+									"type": "text"
+								},
+								{
+									"key": "id_shop",
+									"value": "61",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "10.1.30.89:3000/api/dish/notification",
+							"host": [
+								"10",
+								"1",
+								"30",
+								"89"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dish",
+								"notification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Danh sách order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "68",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "10.1.30.89:3000/api/dish/list_order",
+							"host": [
+								"10",
+								"1",
+								"30",
+								"89"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dish",
+								"list_order"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "search",
+			"item": [
+				{
+					"name": "Tìm kiếm món ăn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "keyword",
+									"value": "a",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://10.1.30.89:3000/api/dish/search",
+							"protocol": "http",
+							"host": [
+								"10",
+								"1",
+								"30",
+								"89"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dish",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tìm kiếm lịch sử",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "keyword",
+									"value": "a",
+									"type": "text"
+								},
+								{
+									"key": "orderBy",
+									"value": "asc",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://10.1.30.89:3000/api/history/search",
+							"protocol": "http",
+							"host": [
+								"10",
+								"1",
+								"30",
+								"89"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"history",
+								"search"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "desc, asc",
+									"disabled": true
+								}
 							]
 						}
 					},
