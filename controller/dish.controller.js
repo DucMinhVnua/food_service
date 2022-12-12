@@ -125,13 +125,42 @@ exports.updateDish = function (req, res) {
 // GET LIST ORDERED DISH
 
 exports.getListOrdered = (req, res) => {
-  const { id } = req.body;
+  const { id, id_shop } = req.body;
 
-  Notification.getAll(id, (err, data) => {
+  Notification.getAll({ id_customer: id, id_shop }, (err, data) => {
+    if (err) {
+      return res.status(500).send({
+        code: 1,
+        message: err.message,
+      });
+    }
+
+    return res.status(200).send({
+      code: 0,
+      data: data,
+    });
+  });
+};
+
+// INSERT ORDERED DISH
+
+exports.insertOrderDish = (req, res) => {
+  const { id_dish, id_customer, id_shop, status, amount } = req.body;
+
+  const order = new Order({
+    id_dish,
+    id_customer,
+    id_shop,
+    status,
+    amount,
+    ordered_time: new Date(),
+  });
+
+  Order.insertOrderDish(order, (err, data) => {
     if (err) {
       res.status(500).send({
         code: 1,
-        message: err.message,
+        message: err,
       });
     } else {
       res.status(200).send({
@@ -142,24 +171,67 @@ exports.getListOrdered = (req, res) => {
   });
 };
 
-// INSERT ORDERED DISH
+// Update ORDERED DISH
 
-exports.insertOrderDish = (req, res) => {
-  const { id_dish, id_customer, status, amount } = req.body;
+exports.updateOrderDish = (req, res) => {
+  const { id, id_dish, id_customer, status, amount, id_shop } = req.body;
 
   const order = new Order({
+    id,
     id_dish,
+    id_shop,
     id_customer,
     status,
     amount,
     ordered_time: new Date(),
   });
 
-  Order.insertOrderDish(order, (err, data) => {
+  Order.updateOrderDish(order, (err, data) => {
     if (err) {
       res.status(500).send({
         code: 1,
-        message: err.message,
+        message: err,
+      });
+    } else {
+      res.status(200).send({
+        code: 0,
+        data: data,
+      });
+    }
+  });
+};
+
+// Select ORDERED DISH
+
+exports.selectOrderDish = (req, res) => {
+  const { id_customer, id_dish, type, id_shop } = req.body;
+
+  Order.selectOrderDish(
+    { id_customer, id_dish, type, id_shop },
+    (err, data) => {
+      if (err) {
+        res.status(500).send({
+          code: 1,
+          message: err,
+        });
+      } else {
+        res.status(200).send({
+          code: 0,
+          data: data,
+        });
+      }
+    }
+  );
+};
+
+exports.selectSingleOrderDish = (req, res) => {
+  const { id_ordered } = req.body;
+
+  Order.selectSingleOrderDish(id_ordered, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        code: 1,
+        message: err,
       });
     } else {
       res.status(200).send({

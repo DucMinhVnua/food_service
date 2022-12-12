@@ -85,19 +85,6 @@ module.exports = {
         longitude,
       } = req.body;
 
-      console.log(req.file);
-
-      console.log({
-        id,
-        coord_id,
-        password,
-        user_name,
-        phone_number,
-        address,
-        latitude,
-        longitude,
-      });
-
       const avatar = req.file
         ? `${process.env.IP}/uploads/${req.file.filename}`
         : null;

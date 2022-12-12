@@ -39,10 +39,11 @@ Dish.create = (dish, result) => {
 };
 
 Dish.selectAll = (id, result) => {
+  console.log(id);
   const join_1 = "INNER JOIN auth a ON d.id_shop=a.id AND role=0";
   const join_2 = "INNER JOIN coords c ON a.coord_id=c.id";
-  let query = `SELECT d.*,a.id AS id_shop, a.email, a.phone_number, a.address, a.avatar, a.coord_id, c.latitude, c.longitude FROM dish d ${join_1} ${join_2}`;
 
+  let query = `SELECT d.*,a.id AS id_shop,a.user_name, a.email, a.phone_number, a.address, a.avatar, a.coord_id, c.latitude, c.longitude FROM dish d ${join_1} ${join_2}`;
   if (id) {
     query += ` WHERE d.id_shop = ${id}`;
   }
