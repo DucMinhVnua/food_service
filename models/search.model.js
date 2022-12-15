@@ -10,7 +10,7 @@ exports.searchDishModel = (keyword, result) => {
 
   // initializa variables
   const querySelectTable =
-    "SELECT dish.*, auth.address, auth.user_name AS name_shop FROM dish";
+    "SELECT dish.*, auth.address, auth.user_name AS name_shop, coords.latitude, coords.longitude FROM dish";
   const conditionLike = `WHERE name LIKE "%${keyword}%"`;
   const queryJoinAuthByIdShop = "INNER JOIN auth ON auth.id = dish.id_shop";
   const queryJoinCoordsFromAuthTable =
@@ -36,13 +36,15 @@ exports.searchDishModel = (keyword, result) => {
 exports.searchDishHistoryModel = (req, result) => {
   // initialize variables
   const querySelectTable =
-    "SELECT notification.*, dish.name, dish.price, dish.images, dish.percent_discount, dish.description, dish.id_shop, auth.address, auth.user_name AS name_shop, au_customer.user_name AS name_customer FROM notification";
+    "SELECT notification.*, dish.name, dish.price, dish.images, dish.percent_discount, dish.description, dish.id_shop, auth.address, auth.user_name AS name_shop, au_customer.user_name AS name_customer, coords.latitude, coords.longitude FROM notification";
   let condition = "WHERE status = 4";
   const conditionLike = `dish.name LIKE "%${req.keyword}%"`;
   const queryJoinDish = "INNER JOIN dish ON dish.id = notification.id_dish";
   const orderBy = `ORDER BY notification.ordered_time ${req.orderBy}`;
   const query_join_shop = `INNER JOIN auth ON auth.id = dish.id_shop`;
   const query_join_customer = `INNER JOIN auth au_customer ON au_customer.id = notification.id_customer`;
+  const queryJoinCoordsFromAuthTable =
+    "INNER JOIN coords ON coords.id = auth.coord_id";
 
   if (req.id_customer) {
     condition =
@@ -53,7 +55,7 @@ exports.searchDishHistoryModel = (req, result) => {
     condition = condition + ` AND notification.id_shop = ${req.id_shop}`;
   }
 
-  let queryRoot = `${querySelectTable} ${queryJoinDish} ${query_join_shop} ${query_join_customer} ${condition} AND ${conditionLike}`;
+  let queryRoot = `${querySelectTable} ${queryJoinDish} ${query_join_shop} ${queryJoinCoordsFromAuthTable} ${query_join_customer} ${condition} AND ${conditionLike}`;
 
   // config when had orderBy
   if (req.orderBy) {

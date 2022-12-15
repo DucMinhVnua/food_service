@@ -177,6 +177,7 @@ Order.selectOrderDish = (
   const query_condition_status = `WHERE orderdish.status = ${status}`;
   const query_orderBy = `ORDER BY dish.price ${order_by}`;
   const query_join_shop = `INNER JOIN auth ON auth.id = dish.id_shop`;
+  const query_join_coords = `INNER JOIN coords ON coords.id = auth.coord_id`;
   const query_join_customer = `INNER JOIN auth au_customer ON au_customer.id = orderdish.id_customer`;
 
   if (id_customer) {
@@ -191,7 +192,7 @@ Order.selectOrderDish = (
     condition = `WHERE orderdish.id_shop = ${id_shop}`;
   }
 
-  let query = `SELECT orderdish.*,dish.name, dish.price, dish.description, dish.images, dish.create_at, dish.percent_discount, dish.id_shop, auth.user_name AS name_shop, au_customer.user_name AS name_customer FROM orderdish ${query_join_dish} ${query_join_shop} ${query_join_customer} ${condition}`;
+  let query = `SELECT orderdish.*,dish.name, dish.price, dish.description, dish.images, dish.create_at, dish.percent_discount, dish.id_shop, auth.user_name AS name_shop, auth.address,au_customer.address, au_customer.user_name AS name_customer FROM orderdish ${query_join_dish} ${query_join_shop} ${query_join_customer} ${condition}`;
 
   if (status) {
     query += query + query_condition_status;

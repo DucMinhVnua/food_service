@@ -181,6 +181,7 @@ const getInfoUser = (id, res) => {
         phone_number: rows[0].phone_number,
         address: rows[0].address,
         role: rows[0].role,
+        description: rows[0].description,
         coords: {
           id: rows[0].coord_id,
           latitude: rows[0].latitude,

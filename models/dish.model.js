@@ -39,7 +39,6 @@ Dish.create = (dish, result) => {
 };
 
 Dish.selectAll = (id, result) => {
-  console.log(id);
   const join_1 = "INNER JOIN auth a ON d.id_shop=a.id AND role=0";
   const join_2 = "INNER JOIN coords c ON a.coord_id=c.id";
 
