@@ -2,6 +2,7 @@ module.exports = {
   create_dish: "/api/dish/create",
   get_dish_list: "/api/dish/list",
   delete_dish: "/api/dish/delete",
+  get_dish: "/api/dish",
   update_dish: "/api/dish/update",
   notification_dish: "/api/dish/notification",
   create_order_dish: "/api/dish/create_order",
@@ -11,4 +12,5 @@ module.exports = {
   select_single_order_dish: "/api/dish/order",
   search_dish: "/api/dish/search",
   search_ordered_dish: "/api/history/search",
+  update_sold_status: "/api/dish/update-sold-status",
 };

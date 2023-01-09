@@ -241,3 +241,42 @@ exports.selectSingleOrderDish = (req, res) => {
     }
   });
 };
+
+// update sold status of dish
+exports.updateSoldStatusController = (req, res) => {
+  const { dish_id, status } = req.body;
+
+  Dish.update_sold_status(dish_id, status, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        code: 1,
+        message: err,
+      });
+    } else {
+      res.status(200).send({
+        code: 0,
+        data: data,
+      });
+    }
+  });
+}
+
+// get dish
+exports.getDishController = (req, res) => {
+  const { dish_id } = req.body;
+
+  Dish.getDish(dish_id, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        code: 1,
+        message: err,
+      });
+    } else {
+      res.status(200).send({
+        code: 0,
+        data: data,
+      });
+    }
+  })
+
+}

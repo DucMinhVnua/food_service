@@ -192,7 +192,7 @@ Order.selectOrderDish = (
     condition = `WHERE orderdish.id_shop = ${id_shop}`;
   }
 
-  let query = `SELECT orderdish.*,dish.name, dish.price, dish.description, dish.images, dish.create_at, dish.percent_discount, dish.id_shop, auth.user_name AS name_shop, auth.address,au_customer.address, au_customer.user_name AS name_customer FROM orderdish ${query_join_dish} ${query_join_shop} ${query_join_customer} ${condition}`;
+  let query = `SELECT orderdish.*,dish.name, dish.price, dish.description, dish.images, dish.sold_out, dish.create_at, dish.percent_discount, dish.id_shop, auth.user_name AS name_shop, auth.address,au_customer.address, au_customer.user_name AS name_customer FROM orderdish ${query_join_dish} ${query_join_shop} ${query_join_customer} ${condition}`;
 
   if (status) {
     query += query + query_condition_status;

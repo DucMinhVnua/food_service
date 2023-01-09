@@ -20,6 +20,8 @@ const {
   select_orders_dish,
   search_dish,
   search_ordered_dish,
+  update_sold_status,
+  get_dish,
 } = require("./Routes/dish.route");
 const { getListShop } = require("./controller/auth.controller");
 const {
@@ -32,6 +34,8 @@ const {
   updateOrderDish,
   selectOrderDish,
   selectSingleOrderDish,
+  updateSoldStatusController,
+  getDishController,
 } = require("./controller/dish.controller");
 const {
   searchDishController,
@@ -68,6 +72,8 @@ app.post(select_orders_dish, selectOrderDish);
 app.post(select_single_order_dish, selectSingleOrderDish);
 app.post(search_dish, searchDishController);
 app.post(search_ordered_dish, searchHistoryOrderedController);
+app.post(update_sold_status, updateSoldStatusController)
+app.post(get_dish, getDishController)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
